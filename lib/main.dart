@@ -1,11 +1,13 @@
 import 'package:bloc_practice/bloc/counter/counter_bloc.dart';
 import 'package:bloc_practice/bloc/favourite_app/favourite_app_bloc.dart';
 import 'package:bloc_practice/bloc/image_pickr/image_picker_bloc.dart';
+import 'package:bloc_practice/bloc/post/post_bloc.dart';
 import 'package:bloc_practice/bloc/switch/switch_bloc.dart';
 import 'package:bloc_practice/bloc/todo/todo_bloc.dart';
 import 'package:bloc_practice/repository/favourite_repository.dart';
 import 'package:bloc_practice/ui/favourite_app/favourite_app_screen.dart';
 import 'package:bloc_practice/ui/image_picker/image_picker_sceen.dart';
+import 'package:bloc_practice/ui/posts/post_screen.dart';
 import 'package:bloc_practice/ui/todo/todo_screen.dart';
 import 'package:bloc_practice/utils/image_picker_utils.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => FavouriteAppBloc(FavouriteRepository()),
+          ),
+          BlocProvider(
+            create: (context) => PostBloc(),
           )
         ],
         child: MaterialApp(
@@ -44,7 +49,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             brightness: Brightness.dark,
           ),
-          home: const FavouriteAppScreen(),
+          home: const PostScreen(),
         ),
     );
   }
