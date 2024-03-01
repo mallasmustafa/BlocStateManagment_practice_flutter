@@ -18,7 +18,8 @@ class PostRepository{
           return PostModel(
             postId: e['postId'] as int,
             email: e['email'] as String,
-            body: e['body'] as String
+            body: e['body'] as String,
+            id: e['id'] as int,
           );
         }).toList();
       }

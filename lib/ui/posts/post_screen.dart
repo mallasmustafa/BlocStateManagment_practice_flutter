@@ -32,17 +32,42 @@ class _PostScreenState extends State<PostScreen> {
             case PostStatus.failure:
               return  Center(child: Text(state.message.toString()),);
             case PostStatus.success:
-              return ListView.builder(
-                itemCount: state.postList.length,
-                itemBuilder: (context, index) {
-                  final item = state.postList[index];
-                  return  Card(
-                    child: ListTile(
-                       title: Text(item.email.toString()),
-                      subtitle: Text(item.body.toString()),
+              return Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: "Search with email",
+                      border: OutlineInputBorder(),
                     ),
-                  );
-                },
+                    onChanged: (value) {
+                      context.read<PostBloc>().add(SearchItem(value));
+                    },
+                  ),
+                  Expanded(
+                    child:state.searchMessage.isNotEmpty? Center(child: Text(state.searchMessage.toString())) :ListView.builder(
+                      itemCount: state.tempPostList.isEmpty? state.postList.length : state.tempPostList.length,
+                      itemBuilder: (context, index) {
+                        if(state.tempPostList.isNotEmpty){
+                          final item = state.tempPostList[index];
+                          return  Card(
+                            child: ListTile(
+                              title: Text(item.email.toString()),
+                              subtitle: Text(item.body.toString()),
+                            ),
+                          );
+                        }else{
+                          final item = state.postList[index];
+                          return  Card(
+                            child: ListTile(
+                              title: Text(item.email.toString()),
+                              subtitle: Text(item.body.toString()),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ],
               );
           }
 
